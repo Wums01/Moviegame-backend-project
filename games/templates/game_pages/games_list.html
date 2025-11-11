@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Games List{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>All Games 🎮</h1>
+
+    {% for game in games %}
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ game.image.url }}" class="img-fluid rounded-start" alt="{{ game.title }}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ game.title }}</h5>
+                        <p class="card-text">{{ game.description }}</p>
+
+                        <a href="{% url 'add_to_favorite' game.id %}" class="btn btn-success btn-sm mt-2">
+                            Add to Favorites
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No games available.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ genre.name }}{% endblock %}
+
+{% block content %}
+<h1>{{ genre.name }}</h1>
+
+{% for game in genre.games.all %}
+    <div style="margin-bottom: 20px;">
+        <h2>{{ game.title }}</h2>
+        <img src="{{ game.image.url }}" width="250">
+        <p>{{ game.description }}</p>
+    </div>
+{% empty %}
+    <p>No games in this genre.</p>
+{% endfor %}
+{% endblock %}

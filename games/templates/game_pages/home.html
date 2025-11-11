@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-banner text-white text-center d-flex align-items-center justify-content-center mb-5"
+     style="background-image: url('{% static 'image/hero_mg.jpg' %}');
+            height: 80vh; background-size: cover; background-position: center;">
+  <div class="overlay p-5 rounded bg-dark bg-opacity-50">
+    <h1 class="display-4 fw-bold">🎬 Welcome to Movie Game Hub</h1>
+    <p class="lead">Play, explore genres, and save your favorites!</p>
+    <a href="{% url 'games_list' %}" class="btn btn-success btn-lg mt-3">Start Exploring</a>
+  </div>
+</div>
+
+<!-- Featured Games -->
+<h2 class="mb-4 fw-bold">Featured Games</h2>
+<div class="row">
+  {% for game in games %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <img src="{{ game.image.url }}" class="card-img-top" alt="{{ game.title }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ game.title }}</h5>
+          <p class="card-text">{{ game.description|truncatewords:15 }}</p>
+          <a href="{% url 'games_list' %}" class="btn btn-outline-success btn-sm">View All Games</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No games available yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

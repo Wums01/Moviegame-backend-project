@@ -1,0 +1,46 @@
+<!-- templates/includes/navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container">
+    {% if request.path == '/' %}
+      <span class="navbar-brand fw-bold text-light">🎬 MovieGame</span>
+    {% else %}
+      <a class="navbar-brand fw-bold" href="{% url 'home' %}">🎬 MovieGame</a>
+    {% endif %}
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/games/' %}active{% endif %}" href="{% url 'games_list' %}">All Games</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/genres/' %}active{% endif %}" href="{% url 'genre_list' %}">Genres</a>
+        </li>
+      {% with request.session.favorite_games|length as fav_count %}
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'favorites_list' %}">
+      Favorites ❤{% if fav_count > 0 %} <span class="badge bg-danger">{{ fav_count }}</span>{% endif %}
+    </a>
+  </li>
+{% endwith %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

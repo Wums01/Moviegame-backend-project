@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Genres{% endblock %}
+
+{% block content %}
+<h2 class="mb-4 text-center fw-bold text-success">🎭 Explore Game Genres</h2>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for genre in genres %}
+  <div class="col">
+    <a href="{% url 'genre_detail' genre.id %}" class="text-decoration-none">
+      <div class="card h-100 shadow-sm border-0 hover-shadow">
+        <div class="card-body text-center">
+          <h5 class="card-title text-dark">{{ genre.name }}</h5>
+        </div>
+        <div class="card-footer text-center">
+          <small>View Games</small>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% empty %}
+  <p class="text-center text-muted">No genres available yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% include 'game_pages/navbar.html' %}
+
+{% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

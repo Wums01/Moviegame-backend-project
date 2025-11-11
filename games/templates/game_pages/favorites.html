@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Your Favorites{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>My Favorite Games 💖</h2>
+    {% if favorites %}
+        <div class="row">
+            {% for game in favorites %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <img src="{{ game.image.url }}" class="card-img-top" alt="{{ game.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ game.title }}</h5>
+                            <p class="card-text">{{ game.description }}</p>
+                            <a href="{% url 'remove_from_favorite' game.id %}" class="btn btn-danger">Remove</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">You haven’t added any favorites yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
